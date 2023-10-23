@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import * as maptilersdk from '@maptiler/sdk';
 import "@maptiler/sdk/dist/maptiler-sdk.css";
 import './style.css';
+import UserModal from '../UserModal'
 
 
 export default function Map(props, long, latit) {
@@ -11,6 +12,13 @@ export default function Map(props, long, latit) {
   const [zoom] = useState(14);
   maptilersdk.config.apiKey = 'NsyZwoSs3jN6eaZMF3kY';
 
+
+  const [showComponent, setShowComponent] = useState(false);
+  const handleMarkerClick = () => {
+    setShowComponent(true);
+  };
+
+
   const [users, setUsers] = useState(
     [
       {id:1, name:"5 bola", latitude:-23.469678 ,longitude:-47.434762},
@@ -18,7 +26,6 @@ export default function Map(props, long, latit) {
       {id:3, name:"cubaca", latitude:-23.44771850 ,longitude:-47.438252},
     ]
   )
-
 
 
   useEffect(() => {
@@ -38,7 +45,8 @@ export default function Map(props, long, latit) {
   function points(latitude, longitude){
     new maptilersdk.Marker({color: "#FF0000"})
       .setLngLat([longitude, latitude])
-      .addTo(map.current);
+      .addTo(map.current)
+     
   }
 
 
@@ -52,11 +60,24 @@ export default function Map(props, long, latit) {
 
   }, [props.long, props.latit, zoom]);
 
+  
+
   return (
     <div className="map-wrap">
       <div ref={mapContainer} className="map" />
-      {console.log(props.latit)}
-      {console.log(props.long)}
+
+      <div>
+      {/* Renderize seu mapa e seus marcadores aqui */}
+      <div className="maplibregl-canvas-container" onClick={console.log("ok")}>
+        {/* Conteúdo do marcador */}
+      </div>
+
+      {/* Renderize o componente quando o marcador for clicado */}
+      {showComponent && <UserModal/>}
+      <UserModal/>
+    </div>
+
+
     </div>
   );
 }
