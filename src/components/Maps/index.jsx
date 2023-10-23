@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useMemo } from 'react';
 import * as maptilersdk from '@maptiler/sdk';
 import "@maptiler/sdk/dist/maptiler-sdk.css";
 import './style.css';
@@ -8,14 +8,23 @@ import UserModal from '../UserModal'
 export default function Map(props, long, latit) {
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const Location = { lng: props.long, lat: props.latit};
+
+  const Location = useMemo(() => {
+    return { lng: props.long, lat: props.latit };
+  }, [props.long, props.latit]);
+
   const [zoom] = useState(14);
   maptilersdk.config.apiKey = 'NsyZwoSs3jN6eaZMF3kY';
 
 
   const [showComponent, setShowComponent] = useState(false);
-  const handleMarkerClick = () => {
+  const handleMarkerClick = (user) => {
     setShowComponent(true);
+    setUserModalProps(user);
+  };
+
+  const handleOfClick = () => {
+    setShowComponent(false);
   };
 
 
@@ -34,48 +43,38 @@ export default function Map(props, long, latit) {
     map.current = new maptilersdk.Map({
       container: mapContainer.current,
       style: maptilersdk.MapStyle.STREETS,
-      center: [props.long, props.latit],
+      center: Location,
       zoom: zoom,
       
     });
 
-      
-  }, [props.long, props.latit, zoom]);
-
-  function points(latitude, longitude){
-    new maptilersdk.Marker({color: "#FF0000"})
-      .setLngLat([longitude, latitude])
-      .addTo(map.current)
-     
-  }
-
-
-  useEffect(() => {
 
     for (const user of users) {
-      console.log(user.name);
-      points(user.latitude ,user.longitude)
+      const marker = new maptilersdk.Marker({color: "#FF0000"})
+        .setLngLat([user.longitude, user.latitude])
+        .addTo(map.current);
+
+      marker.on('click', () => handleMarkerClick(user));
     }
 
 
   }, [props.long, props.latit, zoom]);
 
-  
+  const [userModalProps, setUserModalProps] = useState();
 
   return (
-    <div className="map-wrap">
-      <div ref={mapContainer} className="map" />
+<div className="map-wrap" >
 
-      <div>
-      {/* Renderize seu mapa e seus marcadores aqui */}
-      <div className="maplibregl-canvas-container" onClick={console.log("ok")}>
-        {/* Conteúdo do marcador */}
-      </div>
+  <div className="map-wrap">
+    <div ref={mapContainer} className="map" onClick={handleOfClick} />
+  </div>
 
-      {/* Renderize o componente quando o marcador for clicado */}
-      {showComponent && <UserModal/>}
-      <UserModal/>
-    </div>
+
+
+  <div className="maplibregl-interactive" onClick={handleMarkerClick}>
+          {/* Conteúdo do marcador */}
+          {showComponent && <UserModal props={userModalProps}  />}
+  </div>
 
 
     </div>
