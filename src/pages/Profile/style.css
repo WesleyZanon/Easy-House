@@ -1,0 +1,36 @@
+.profile-container {
+    /*background-image: url('url_da_imagem_de_fundo.jpg');*/
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .profile-paper {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.7);
+  }
+  
+  .profile-avatar {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+  }
+  
+  .profile-name {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .profile-info {
+    text-align: center;
+  }
+  
+  .profile-button {
+    display: block;
+    margin: 20px auto;
+  }
+  

@@ -1,0 +1,34 @@
+.registration-container {
+    /*background-image: url('url_da_imagem_de_fundo.jpg');*/
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .registration-paper {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.7);
+  }
+  
+  .registration-paper h2 {
+    text-align: center;
+  }
+  
+  .registration-paper form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .registration-paper .MuiTextField-root {
+    margin: 10px 0;
+  }
+  
+  .registration-paper .MuiButton-root {
+    margin: 20px auto;
+    display: block;
+  }
+  

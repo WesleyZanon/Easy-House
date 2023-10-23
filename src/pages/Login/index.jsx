@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Paper, TextField, Button } from '@mui/material';
+import './style.css';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -22,35 +23,37 @@ const LoginPage = () => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Paper elevation={3} style={{ padding: '20px' }}>
-        <h2>Login</h2>
-        <form onSubmit={handleSubmit}>
-          <TextField
-            label="Email"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          <TextField
-            label="Senha"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-          <Button type="submit" variant="contained" color="primary">
-            Entrar
-          </Button>
-        </form>
-      </Paper>
-    </Container>
+    <div className="login-container">
+      <Container maxWidth="sm">
+        <Paper elevation={3} className="login-paper">
+          <h2>Login</h2>
+          <form onSubmit={handleSubmit}>
+            <TextField
+              label="Email"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Senha"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            <Button type="submit" variant="contained" color="primary">
+              Entrar
+            </Button>
+          </form>
+        </Paper>
+      </Container>
+    </div>
   );
 };
 
